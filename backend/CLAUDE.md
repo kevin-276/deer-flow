@@ -508,3 +508,15 @@ See `docs/` directory for detailed documentation:
 - [PATH_EXAMPLES.md](docs/PATH_EXAMPLES.md) - Path types and usage
 - [summarization.md](docs/summarization.md) - Context summarization
 - [plan_mode_usage.md](docs/plan_mode_usage.md) - Plan mode with TodoList
+
+## DeerFlow-BI Scaffold (New)
+
+A new backend scaffold exists at `packages/harness/deerflow/bi/` for a multi-agent BI/Text-to-SQL direction.
+
+Scope of current scaffold:
+- Runtime state and agent I/O protocols (`runtime/state.py`, `runtime/protocols.py`)
+- Sequential orchestrator (`runtime/orchestration.py`) with compatibility wrapper (`pipeline.py`)
+- Six placeholder stage agents (`agents/`)
+- BI extension packages (`skills/`, `memory/`, `evaluation/`, `artifacts/`, `tests/`)
+
+Use this scaffold as the canonical place to implement BI planner/retrieval/sql/repair/critic/reporter logic incrementally.
