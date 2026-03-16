@@ -210,3 +210,22 @@ MVP 主流程在 `runtime/orchestration.py`：
 - `final_result.json`（若结果为表格行则可输出 `final_result.csv`）
 
 该目录路径会写入 `state.runtime_metadata["artifact_run_dir"]`，并同步到 `state.report_artifacts`。
+
+
+## 13. ISSUE-011：Schema Retrieval Agent 骨架
+
+`SchemaRetrievalAgent` 当前提供可独立调用的骨架能力：
+
+- 表级检索：基于 query 与表名 token 的词法匹配打分
+- 列级检索：基于 query 与列名 token 的词法匹配打分
+- schema context 构建：输出精简后的 `state.retrieved_schema`（table/columns/score）
+
+结构化输出字段：
+- `retrieved_tables`
+- `retrieved_columns`
+- `schema_summary`
+- `retrieval_metadata`
+
+并写回 runtime state：
+- `state.retrieved_schema`
+- `state.runtime_metadata["schema_retrieval"]`

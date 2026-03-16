@@ -554,3 +554,8 @@ Artifact output MVP note:
 
 DeerFlow-BI developer usage/readme:
 - `packages/harness/deerflow/bi/README.md` is the canonical MVP runbook (install, demo run, artifact layout, roadmap snapshot).
+
+
+Schema Retrieval MVP note:
+- `packages/harness/deerflow/bi/agents/schema_retrieval_agent.py` provides lexical table/column retrieval with structured outputs.
+- Orchestration now includes Planner -> Schema Retrieval -> SQL Generator -> Executor/Repair.

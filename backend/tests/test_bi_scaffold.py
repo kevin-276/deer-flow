@@ -38,6 +38,7 @@ def test_runtime_state_has_required_fields() -> None:
 def test_orchestrator_runs_mvp_placeholder_flow() -> None:
     result = BIOrchestrator().run("统计最近 30 天新增用户数")
     assert result.analysis_plan is not None
+    assert result.retrieved_schema
     assert result.candidate_sql
     assert result.final_sql
     assert result.final_result is not None
@@ -90,6 +91,7 @@ def test_sql_generator_outputs_structured_candidates() -> None:
 def test_run_mvp_demo_returns_state_with_plan_sql_result(tmp_path) -> None:
     result = run_mvp_demo("统计最近 30 天新增用户数", artifacts_root_dir=str(tmp_path))
     assert result.analysis_plan is not None
+    assert result.retrieved_schema
     assert result.candidate_sql
     assert result.final_sql
     assert result.final_result is not None
@@ -113,3 +115,18 @@ def test_mvp_demo_generates_run_specific_artifacts(tmp_path) -> None:
 
     assert Path(dir1, "plan.json").read_text(encoding="utf-8")
     assert Path(dir1, "candidate_sql.sql").read_text(encoding="utf-8")
+
+
+def test_schema_retrieval_outputs_structured_context() -> None:
+    state = BIState(user_question="统计最近30天按渠道的新增用户数")
+    PlannerAgent().run(state)
+
+    output = SchemaRetrievalAgent().run(state)
+
+    assert isinstance(output, dict)
+    assert set(output).issuperset({"retrieved_tables", "retrieved_columns", "schema_summary", "retrieval_metadata"})
+    assert output["retrieved_tables"]
+    assert output["retrieved_columns"]
+    assert output["schema_summary"]
+    assert "schema_retrieval" in state.runtime_metadata
+    assert state.retrieved_schema

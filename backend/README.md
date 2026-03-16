@@ -413,3 +413,8 @@ Orchestration MVP status:
 Artifact output MVP status:
 - Each MVP run now exports run-specific artifacts under `artifacts/deerflow_bi_runs/`.
 - Files include `plan.json`, `candidate_sql.sql`, `execution_log.json`, and `final_result.json`/`final_result.csv`.
+
+
+Schema Retrieval MVP status:
+- `agents/schema_retrieval_agent.py` now provides table-level/column-level retrieval and compact schema context generation.
+- Retrieval outputs are persisted into `state.retrieved_schema` and `state.runtime_metadata["schema_retrieval"]`.
