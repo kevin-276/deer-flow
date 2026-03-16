@@ -508,3 +508,30 @@ See `docs/` directory for detailed documentation:
 - [PATH_EXAMPLES.md](docs/PATH_EXAMPLES.md) - Path types and usage
 - [summarization.md](docs/summarization.md) - Context summarization
 - [plan_mode_usage.md](docs/plan_mode_usage.md) - Plan mode with TodoList
+
+## DeerFlow-BI Scaffold (New)
+
+A new backend scaffold exists at `packages/harness/deerflow/bi/` for a multi-agent BI/Text-to-SQL direction.
+
+Scope of current scaffold:
+- Runtime state and agent I/O protocols (`runtime/state.py`, `runtime/protocols.py`)
+- Sequential orchestrator (`runtime/orchestration.py`) with compatibility wrapper (`pipeline.py`)
+- Six placeholder stage agents (`agents/`)
+- BI extension packages (`skills/`, `memory/`, `evaluation/`, `artifacts/`, `tests/`)
+
+Use this scaffold as the canonical place to implement BI planner/retrieval/sql/repair/critic/reporter logic incrementally.
+
+Planner MVP note:
+- `packages/harness/deerflow/bi/agents/planner_agent.py` is now the primary minimal planner implementation.
+- It writes structured planning output into `BIState.analysis_plan` for downstream stages.
+
+
+
+SQL execute skill MVP note:
+- `packages/harness/deerflow/bi/skills/sql_execute/` provides `execute_sql()` and state write-back helper.
+- Current dialect support is SQLite-first for local reliability.
+
+
+SQL Generator MVP status:
+- `agents/sql_generator_agent.py` now returns structured output with `candidate_sql`, `dialect`, and `generation_note`.
+- Output is persisted into runtime state for downstream execution (`state.candidate_sql`, `state.runtime_metadata["sql_generation"]`).

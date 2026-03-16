@@ -364,3 +364,34 @@ See the [LICENSE](../LICENSE) file in the project root.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+---
+
+## DeerFlow-BI (Scaffold)
+
+Backend now includes an initial `deerflow.bi` scaffold for a multi-agent BI/Text-to-SQL direction.
+
+Location:
+- `packages/harness/deerflow/bi/`
+
+Current scaffold includes:
+- Multi-agent placeholders (`agents/`) for planner, schema retrieval, SQL generation, executor/repair, critic, reporter
+- Runtime contracts and orchestration (`runtime/state.py`, `runtime/protocols.py`, `runtime/orchestration.py`)
+- Compatibility wrapper (`pipeline.py`) for incremental migration
+- Extension directories (`skills/`, `memory/`, `evaluation/`, `artifacts/`, `tests/`, `docs/`)
+
+This scaffold is intentionally non-production and designed for incremental implementation with benchmark and ablation experiments.
+
+Planner MVP status:
+- `agents/planner_agent.py` now generates a structured analysis plan (`task_type`, `target_metric`, `dimensions`, `filters`, `time_range`, `assumptions`, `next_action`) and writes it into runtime state.
+
+
+
+SQL execute skill MVP status:
+- Added `packages/harness/deerflow/bi/skills/sql_execute/` with SQLite execution and structured success/failure results.
+- Executor/Repair now uses this skill and writes execution output into runtime state.
+
+
+SQL Generator MVP status:
+- `agents/sql_generator_agent.py` now returns structured output with `candidate_sql`, `dialect`, and `generation_note`.
+- Output is persisted into runtime state for downstream execution (`state.candidate_sql`, `state.runtime_metadata["sql_generation"]`).
