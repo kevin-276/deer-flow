@@ -395,3 +395,8 @@ SQL execute skill MVP status:
 SQL Generator MVP status:
 - `agents/sql_generator_agent.py` now returns structured output with `candidate_sql`, `dialect`, and `generation_note`.
 - Output is persisted into runtime state for downstream execution (`state.candidate_sql`, `state.runtime_metadata["sql_generation"]`).
+
+
+Executor/Repair MVP status:
+- `agents/executor_repair_agent.py` now runs SQL execution + up to 2 repair rounds based on structured errors.
+- Runtime outputs include `final_sql`, `execution_logs`, `repair_rounds`, and enriched `final_result`.

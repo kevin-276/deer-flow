@@ -535,3 +535,8 @@ SQL execute skill MVP note:
 SQL Generator MVP status:
 - `agents/sql_generator_agent.py` now returns structured output with `candidate_sql`, `dialect`, and `generation_note`.
 - Output is persisted into runtime state for downstream execution (`state.candidate_sql`, `state.runtime_metadata["sql_generation"]`).
+
+
+Executor/Repair MVP note:
+- `packages/harness/deerflow/bi/agents/executor_repair_agent.py` now supports minimal execution-guided repair loop.
+- Repair metadata is persisted to `BIState.final_result` and `BIState.runtime_metadata["executor_repair"]`.

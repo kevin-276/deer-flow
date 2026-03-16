@@ -159,3 +159,21 @@
   - `state.runtime_metadata["sql_generation"]`
 
 当 schema context 存在时走 schema-aware 模板；不存在时走 fallback 模板，便于后续平滑接入 retrieval 结果。
+
+
+## 10. ISSUE-007：Executor / Repair Agent 最小闭环
+
+`ExecutorRepairAgent` 当前支持执行-修复闭环：
+
+1. 读取 `candidate_sql` 并调用 `sql_execute` skill 执行
+2. 若失败，基于 `error_message` 做最多 2 轮修复（可配置）
+3. 输出并写回：
+   - `final_sql`
+   - `execution_logs`
+   - `repair_rounds`
+   - `final_result`
+
+当前基础修复策略（可扩展）：
+- `SELEC` -> `SELECT`
+- 去除 `SELECT a, FROM t` 的尾随逗号
+- `no such table` 时优先使用 retrieval 的首个表名进行替换
