@@ -1,4 +1,5 @@
-"""BI artifact generation placeholder.
+"""BI artifact generation utilities."""
 
-Intended for markdown/chart/json outputs compatible with DeerFlow artifact pipeline.
-"""
+from deerflow.bi.artifacts.exporter import export_run_artifacts
+
+__all__ = ["export_run_artifacts"]

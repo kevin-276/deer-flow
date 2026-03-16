@@ -193,3 +193,20 @@ MVP 主流程在 `runtime/orchestration.py`：
 
 - 函数：`run_mvp_demo(question, sqlite_db_path=None)`
 - CLI：`python -m deerflow.bi.runtime.demo "统计最近30天新增用户数" --sqlite-db-path <path>`
+
+
+## 12. ISSUE-009：MVP Artifact 输出结构
+
+每次运行会在 run-specific 目录写出 artifacts，默认根目录：
+`artifacts/deerflow_bi_runs/`
+
+目录示例：
+`artifacts/deerflow_bi_runs/run_20260101T010203Z_ab12cd34/`
+
+包含文件：
+- `plan.json`
+- `candidate_sql.sql`
+- `execution_log.json`
+- `final_result.json`（若结果为表格行则可输出 `final_result.csv`）
+
+该目录路径会写入 `state.runtime_metadata["artifact_run_dir"]`，并同步到 `state.report_artifacts`。

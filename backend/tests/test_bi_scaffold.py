@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from deerflow.bi import BIOrchestrator, BIState, DeerFlowBIPipeline
 from deerflow.bi.agents import (
     CriticAgent,
@@ -85,9 +87,29 @@ def test_sql_generator_outputs_structured_candidates() -> None:
     assert state.runtime_metadata["sql_generation"]["dialect"] == "sqlite"
 
 
-def test_run_mvp_demo_returns_state_with_plan_sql_result() -> None:
-    result = run_mvp_demo("统计最近 30 天新增用户数")
+def test_run_mvp_demo_returns_state_with_plan_sql_result(tmp_path) -> None:
+    result = run_mvp_demo("统计最近 30 天新增用户数", artifacts_root_dir=str(tmp_path))
     assert result.analysis_plan is not None
     assert result.candidate_sql
     assert result.final_sql
     assert result.final_result is not None
+
+
+def test_mvp_demo_generates_run_specific_artifacts(tmp_path) -> None:
+    run1 = run_mvp_demo("统计最近30天新增用户数", artifacts_root_dir=str(tmp_path))
+    run2 = run_mvp_demo("统计最近30天新增用户数", artifacts_root_dir=str(tmp_path))
+
+    dir1 = run1.runtime_metadata.get("artifact_run_dir")
+    dir2 = run2.runtime_metadata.get("artifact_run_dir")
+
+    assert dir1 and dir2
+    assert dir1 != dir2
+
+    required = ["plan.json", "candidate_sql.sql", "execution_log.json"]
+    for filename in required:
+        assert Path(dir1, filename).exists()
+
+    assert Path(dir1, "final_result.json").exists() or Path(dir1, "final_result.csv").exists()
+
+    assert Path(dir1, "plan.json").read_text(encoding="utf-8")
+    assert Path(dir1, "candidate_sql.sql").read_text(encoding="utf-8")

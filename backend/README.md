@@ -405,3 +405,8 @@ Executor/Repair MVP status:
 Orchestration MVP status:
 - `runtime/orchestration.py` now runs the minimal chain Planner -> SQL Generator -> Executor/Repair.
 - Demo CLI/entrypoint available in `runtime/demo.py` via `python -m deerflow.bi.runtime.demo`.
+
+
+Artifact output MVP status:
+- Each MVP run now exports run-specific artifacts under `artifacts/deerflow_bi_runs/`.
+- Files include `plan.json`, `candidate_sql.sql`, `execution_log.json`, and `final_result.json`/`final_result.csv`.

@@ -545,3 +545,8 @@ Executor/Repair MVP note:
 Orchestration MVP note:
 - `packages/harness/deerflow/bi/runtime/orchestration.py` now focuses on Planner -> SQL Generator -> Executor/Repair.
 - Use `packages/harness/deerflow/bi/runtime/demo.py` for local end-to-end MVP demo runs.
+
+
+Artifact output MVP note:
+- Run artifacts are exported per run under `artifacts/deerflow_bi_runs/run_<timestamp>_<id>/`.
+- Path is stored in `BIState.runtime_metadata["artifact_run_dir"]`.
