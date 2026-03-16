@@ -540,3 +540,8 @@ SQL Generator MVP status:
 Executor/Repair MVP note:
 - `packages/harness/deerflow/bi/agents/executor_repair_agent.py` now supports minimal execution-guided repair loop.
 - Repair metadata is persisted to `BIState.final_result` and `BIState.runtime_metadata["executor_repair"]`.
+
+
+Orchestration MVP note:
+- `packages/harness/deerflow/bi/runtime/orchestration.py` now focuses on Planner -> SQL Generator -> Executor/Repair.
+- Use `packages/harness/deerflow/bi/runtime/demo.py` for local end-to-end MVP demo runs.

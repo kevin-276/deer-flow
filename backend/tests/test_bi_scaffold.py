@@ -7,6 +7,7 @@ from deerflow.bi.agents import (
     SchemaRetrievalAgent,
     SQLGeneratorAgent,
 )
+from deerflow.bi.runtime import run_mvp_demo
 
 
 def test_bi_modules_are_importable() -> None:
@@ -35,11 +36,10 @@ def test_runtime_state_has_required_fields() -> None:
 def test_orchestrator_runs_mvp_placeholder_flow() -> None:
     result = BIOrchestrator().run("统计最近 30 天新增用户数")
     assert result.analysis_plan is not None
-    assert result.retrieved_schema
     assert result.candidate_sql
     assert result.final_sql
-    assert result.critic_feedback
-    assert result.report_artifacts
+    assert result.final_result is not None
+    assert result.execution_logs
 
 
 def test_pipeline_keeps_backward_compatibility() -> None:
@@ -83,3 +83,11 @@ def test_sql_generator_outputs_structured_candidates() -> None:
     assert output["generation_note"]
     assert "sql_generation" in state.runtime_metadata
     assert state.runtime_metadata["sql_generation"]["dialect"] == "sqlite"
+
+
+def test_run_mvp_demo_returns_state_with_plan_sql_result() -> None:
+    result = run_mvp_demo("统计最近 30 天新增用户数")
+    assert result.analysis_plan is not None
+    assert result.candidate_sql
+    assert result.final_sql
+    assert result.final_result is not None

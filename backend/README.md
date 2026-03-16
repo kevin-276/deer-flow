@@ -400,3 +400,8 @@ SQL Generator MVP status:
 Executor/Repair MVP status:
 - `agents/executor_repair_agent.py` now runs SQL execution + up to 2 repair rounds based on structured errors.
 - Runtime outputs include `final_sql`, `execution_logs`, `repair_rounds`, and enriched `final_result`.
+
+
+Orchestration MVP status:
+- `runtime/orchestration.py` now runs the minimal chain Planner -> SQL Generator -> Executor/Repair.
+- Demo CLI/entrypoint available in `runtime/demo.py` via `python -m deerflow.bi.runtime.demo`.

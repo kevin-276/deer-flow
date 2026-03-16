@@ -177,3 +177,19 @@
 - `SELEC` -> `SELECT`
 - 去除 `SELECT a, FROM t` 的尾随逗号
 - `no such table` 时优先使用 retrieval 的首个表名进行替换
+
+
+## 11. ISSUE-008：最小 Orchestration + Demo 入口
+
+MVP 主流程在 `runtime/orchestration.py`：
+
+1. Planner Agent
+2. SQL Generator Agent
+3. Executor / Repair Agent
+
+输入：用户问题；输出：统一 `BIState`，至少包含 `analysis_plan`、`candidate_sql`、`final_sql`、`final_result`、`execution_logs`。
+
+新增 demo 入口：`runtime/demo.py`
+
+- 函数：`run_mvp_demo(question, sqlite_db_path=None)`
+- CLI：`python -m deerflow.bi.runtime.demo "统计最近30天新增用户数" --sqlite-db-path <path>`
