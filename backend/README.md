@@ -369,6 +369,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## DeerFlow-BI (Scaffold)
 
+For a focused DeerFlow-BI MVP usage guide (install/run/artifacts/roadmap), see:
+- `packages/harness/deerflow/bi/README.md`
+
 Backend now includes an initial `deerflow.bi` scaffold for a multi-agent BI/Text-to-SQL direction.
 
 Location:

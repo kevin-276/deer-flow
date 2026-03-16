@@ -550,3 +550,7 @@ Orchestration MVP note:
 Artifact output MVP note:
 - Run artifacts are exported per run under `artifacts/deerflow_bi_runs/run_<timestamp>_<id>/`.
 - Path is stored in `BIState.runtime_metadata["artifact_run_dir"]`.
+
+
+DeerFlow-BI developer usage/readme:
+- `packages/harness/deerflow/bi/README.md` is the canonical MVP runbook (install, demo run, artifact layout, roadmap snapshot).
