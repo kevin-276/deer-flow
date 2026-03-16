@@ -364,3 +364,20 @@ See the [LICENSE](../LICENSE) file in the project root.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+---
+
+## DeerFlow-BI (Scaffold)
+
+Backend now includes an initial `deerflow.bi` scaffold for a multi-agent BI/Text-to-SQL direction.
+
+Location:
+- `packages/harness/deerflow/bi/`
+
+Current scaffold includes:
+- Multi-agent placeholders (`agents/`) for planner, schema retrieval, SQL generation, executor/repair, critic, reporter
+- Runtime contracts and orchestration (`runtime/state.py`, `runtime/protocols.py`, `runtime/orchestration.py`)
+- Compatibility wrapper (`pipeline.py`) for incremental migration
+- Extension directories (`skills/`, `memory/`, `evaluation/`, `artifacts/`, `tests/`, `docs/`)
+
+This scaffold is intentionally non-production and designed for incremental implementation with benchmark and ablation experiments.
